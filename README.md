@@ -5,7 +5,6 @@ This project implements a purely combinational, parallel 8-bit Cyclic Redundancy
 
 By mathematically unrolling 8 clock cycles of LFSR shifts into a single combinational XOR-tree, the module calculates the remainder instantaneously. A core focus of this project was analyzing structural fault testability. After proving the baseline architecture achieves 100% fault coverage, intentional hardware redundancy (based on the Consensus Theorem) was injected to physically demonstrate **logic masking** and untestable faults.
 
-**Team Members:** Mukund Rathi [2023BEC0051] & Aniketh Yuvaraj C. [2023BEC0049]  
 **Course:** ECS324 VLSI Testing & Verification
 
 ## 🛠️ Toolchain & Methodology
