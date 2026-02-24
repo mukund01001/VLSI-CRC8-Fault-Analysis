@@ -1,0 +1,98 @@
+# Input declarations
+INPUT(data_in_0)
+INPUT(data_in_1)
+INPUT(data_in_2)
+INPUT(data_in_3)
+INPUT(data_in_4)
+INPUT(data_in_5)
+INPUT(data_in_6)
+INPUT(data_in_7)
+INPUT(crc_in_0)
+INPUT(crc_in_1)
+INPUT(crc_in_2)
+INPUT(crc_in_3)
+INPUT(crc_in_4)
+INPUT(crc_in_5)
+INPUT(crc_in_6)
+INPUT(crc_in_7)
+
+# Output declarations
+OUTPUT(crc_out_0)
+OUTPUT(crc_out_1)
+OUTPUT(crc_out_2)
+OUTPUT(crc_out_3)
+OUTPUT(crc_out_4)
+OUTPUT(crc_out_5)
+OUTPUT(crc_out_6)
+OUTPUT(crc_out_7)
+OUTPUT(error_flag)
+
+# O0 logic
+O0_1 = xor(data_in_7, data_in_6)
+O0_2 = xor(O0_1, data_in_0)
+O0_3 = xor(O0_2, crc_in_0)
+O0_4 = xor(O0_3, crc_in_6)
+crc_out_0 = xor(O0_4, crc_in_7)
+
+# O1 logic
+O1_1 = xor(data_in_6, data_in_1)
+O1_2 = xor(O1_1, data_in_0)
+O1_3 = xor(O1_2, crc_in_0)
+O1_4 = xor(O1_3, crc_in_1)
+crc_out_1 = xor(O1_4, crc_in_6)
+
+# O2 logic
+O2_1 = xor(data_in_6, data_in_2)
+O2_2 = xor(O2_1, data_in_1)
+O2_3 = xor(O2_2, data_in_0)
+O2_4 = xor(O2_3, crc_in_0)
+O2_5 = xor(O2_4, crc_in_1)
+O2_6 = xor(O2_5, crc_in_2)
+crc_out_2 = xor(O2_6, crc_in_6)
+
+# O3 logic
+O3_1 = xor(data_in_7, data_in_3)
+O3_2 = xor(O3_1, data_in_2)
+O3_3 = xor(O3_2, data_in_1)
+O3_4 = xor(O3_3, crc_in_1)
+O3_5 = xor(O3_4, crc_in_2)
+O3_6 = xor(O3_5, crc_in_3)
+crc_out_3 = xor(O3_6, crc_in_7)
+
+# O4 logic
+O4_1 = xor(data_in_4, data_in_3)
+O4_2 = xor(O4_1, data_in_2)
+O4_3 = xor(O4_2, crc_in_2)
+O4_4 = xor(O4_3, crc_in_3)
+crc_out_4 = xor(O4_4, crc_in_4)
+
+# O5 logic
+O5_1 = xor(data_in_5, data_in_4)
+O5_2 = xor(O5_1, data_in_3)
+O5_3 = xor(O5_2, crc_in_3)
+O5_4 = xor(O5_3, crc_in_4)
+crc_out_5 = xor(O5_4, crc_in_5)
+
+# O6 logic
+O6_1 = xor(data_in_6, data_in_5)
+O6_2 = xor(O6_1, data_in_4)
+O6_3 = xor(O6_2, crc_in_4)
+O6_4 = xor(O6_3, crc_in_5)
+crc_out_6 = xor(O6_4, crc_in_6)
+
+# O7 logic
+O7_1 = xor(data_in_7, data_in_6)
+O7_2 = xor(O7_1, data_in_5)
+O7_3 = xor(O7_2, crc_in_5)
+O7_4 = xor(O7_3, crc_in_6)
+crc_out_7 = xor(O7_4, crc_in_7)
+
+
+# Redundant Error Flag Logic (F = AB + A'C + BC)
+N201 = nand(data_in_0, data_in_0)
+N202 = nand(data_in_0, data_in_1)
+N203 = nand(N201, data_in_2)
+N204 = nand(data_in_1, data_in_2)
+N205 = nand(N202, N203)
+N206 = nand(N205, N205)
+error_flag = nand(N206, N204)

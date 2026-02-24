@@ -1,0 +1,14 @@
+read_verilog crc8.v
+prep -top crc8
+design -stash gold
+
+read_verilog crc8_netlist.v
+prep -top crc8
+design -stash gate
+
+design -copy-from gold -as gold crc8
+design -copy-from gate -as gate crc8
+equiv_make gold gate equiv
+hierarchy -top equiv
+equiv_simple
+equiv_status -assert

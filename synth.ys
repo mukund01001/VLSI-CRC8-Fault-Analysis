@@ -1,0 +1,14 @@
+read_verilog crc8.v
+hierarchy -check -top crc8
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+
+# Map to simple gates that Atalanta and ABC understand
+abc -g AND,OR,XOR,NAND,NOR
+opt; clean
+
+# Write standard gate-level netlist
+write_verilog -noattr crc8_netlist.v
+
+# Write BLIF format (crucial for converting to .bench)
+write_blif -gates crc8.blif
